@@ -1,0 +1,10 @@
+# ticks to wait when you edit their coordinates and stuff
+# 1 second = 20 ticks
+ticks: 3
+
+# the names of the people who have coordinate viewing enabled
+# i gotta get better at naming stuff
+coordinatedplayers: []
+
+# people who disabled their coordinate hud thingy
+disabledcoordinate: []

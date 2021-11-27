@@ -1,0 +1,10 @@
+name: MineFallsCoordinateHUD
+version: '${project.version}'
+main: xyz.minefalls.minefallscoordinatehud.MineFallsCoordinateHUD
+api-version: 1.17
+authors: [ TheGiorno ]
+description: A basic subtitle coordinate displayer for the retards who don't know what F3 is
+website: https://minefalls.xyz
+commands:
+  coordinates:
+    description: toggle your coordinate HUD
