@@ -18,9 +18,9 @@ public class CoordinatesRunnable extends BukkitRunnable {
                 ConfigManager.addPlayer(player);
 
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, (new ComponentBuilder("" +
-                        ChatColor.GOLD + "X: " + ChatColor.RESET + Math.round(player.getLocation().getX()) +
-                        ChatColor.GOLD + "Y: " + ChatColor.RESET + Math.round(player.getLocation().getY()) +
-                        ChatColor.GOLD + "Z: " + ChatColor.RESET + Math.round(player.getLocation().getZ()) +
+                        ChatColor.GOLD + "X: " + ChatColor.RESET + Math.round(player.getLocation().getX()) + ChatColor.GRAY + " | " +
+                        ChatColor.GOLD + "Y: " + ChatColor.RESET + Math.round(player.getLocation().getY()) + ChatColor.GRAY + " | " +
+                        ChatColor.GOLD + "Z: " + ChatColor.RESET + Math.round(player.getLocation().getZ()) + ChatColor.GRAY + " | " +
                         ChatColor.GOLD + getPlayerDirection(player)
                 )).create());
             }
@@ -38,53 +38,20 @@ public class CoordinatesRunnable extends BukkitRunnable {
 
     public static String getPlayerDirection(Player player){
 
-        String direction = "South";
-        float yaw = player.getLocation().getYaw();
+        int yaw = (int) player.getLocation().getYaw();
+        if (yaw < 0) yaw += 360;
+        yaw /= 22.5;
 
-        if ( yaw < 0 ) yaw += 360;
-        yaw %= 360;
-
-        int i = (int) ((yaw + 8) / 22.5);
-
-        /*
-         * stupid ass direction finding logic
-         *
-         * probably sucks but i don't wanna fix it
-         */
-        switch(i){
-            case 0:
-                direction = "South";
-                break;
-            case 1:
-            case 2:
-            case 3:
-                direction = "South-West";
-                break;
-            case 4:
-                direction = "West";
-                break;
-            case 5:
-            case 6:
-            case 7:
-                direction = "North-West";
-                break;
-            case 8:
-                direction = "North";
-                break;
-            case 9:
-            case 10:
-            case 11:
-                direction = "North-East";
-                break;
-            case 12:
-                direction = "East";
-                break;
-            case 13:
-            case 14:
-            case 15:
-                direction = "South-East";
-                break;
-        }
-        return direction;
+        return switch (yaw) {
+            case 0, 15 -> "South";
+            case 1, 2 -> "South-West";
+            case 3, 4 -> "West";
+            case 5, 6 -> "North-West";
+            case 7, 8 -> "North";
+            case 9, 10 -> "North-East";
+            case 11, 12 -> "East";
+            case 13, 14 -> "South-East";
+            default -> "";
+        };
     }
 }
